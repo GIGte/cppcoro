@@ -99,6 +99,7 @@ set(sources
 	auto_reset_event.cpp
 	spin_wait.cpp
 	spin_mutex.cpp
+	io_service.cpp
 )
 
 if(WIN32)
@@ -123,8 +124,7 @@ if(WIN32)
     list(APPEND netIncludes ${win32NetIncludes})
 
     set(win32Sources
-        win32.cpp
-        io_service.cpp
+		win32.cpp
         file.cpp
         readable_file.cpp
         writable_file.cpp
@@ -144,6 +144,20 @@ if(WIN32)
         socket_recv_from_operation.cpp
     )
     list(APPEND sources ${win32Sources})
+elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+	set(linuxDetailIncludes
+		linux.hpp
+		io_uring_context.hpp
+	)
+	list(TRANSFORM linuxDetailIncludes PREPEND "${PROJECT_SOURCE_DIR}/include/cppcoro/detail/")
+	list(APPEND detailIncludes ${linuxDetailIncludes})
+
+	set(linuxSources
+		linux.cpp
+		io_uring.hpp
+		io_uring_context.cpp
+	)
+	list(APPEND sources ${linuxSources})
 endif()
 
 add_library(cppcoro

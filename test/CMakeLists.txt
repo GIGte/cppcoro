@@ -33,6 +33,7 @@ add_executable(run
 	ipv6_address_tests.cpp
 	ipv6_endpoint_tests.cpp
 	static_thread_pool_tests.cpp
+	#scheduling_operator_tests.cpp
 )
 
 if(WIN32)
