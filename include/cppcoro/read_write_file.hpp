@@ -49,7 +49,7 @@ namespace cppcoro
 		[[nodiscard]]
 		static read_write_file open(
 			io_service& ioService,
-			const cppcoro::filesystem::path& path,
+			const std::experimental::filesystem::path& path,
 			file_open_mode openMode = file_open_mode::create_or_open,
 			file_share_mode shareMode = file_share_mode::none,
 			file_buffering_mode bufferingMode = file_buffering_mode::default_);
@@ -58,6 +58,8 @@ namespace cppcoro
 
 #if CPPCORO_OS_WINNT
 		read_write_file(detail::win32::safe_handle&& fileHandle) noexcept;
+#elif CPPCORO_OS_LINUX
+		read_write_file(detail::linux::safe_file_data&& fileData) noexcept;
 #endif
 
 	};

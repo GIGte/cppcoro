@@ -16,6 +16,7 @@
 #include <random>
 #include <thread>
 #include <cassert>
+#include <cstring>
 
 #include "io_service_fixture.hpp"
 
@@ -24,7 +25,7 @@
 
 TEST_SUITE_BEGIN("file");
 
-namespace fs = cppcoro::filesystem;
+namespace fs = std::experimental::filesystem;
 
 namespace
 {
@@ -60,14 +61,14 @@ namespace
 			fs::remove_all(m_path);
 		}
 
-		const cppcoro::filesystem::path& temp_dir()
+		const fs::path& temp_dir()
 		{
 			return m_path;
 		}
 
 	private:
 
-		cppcoro::filesystem::path m_path;
+		fs::path m_path;
 
 	};
 

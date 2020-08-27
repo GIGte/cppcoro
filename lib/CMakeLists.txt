@@ -100,6 +100,14 @@ set(sources
 	spin_wait.cpp
 	spin_mutex.cpp
 	io_service.cpp
+	file.cpp
+	readable_file.cpp
+	writable_file.cpp
+	read_only_file.cpp
+	write_only_file.cpp
+	read_write_file.cpp
+	file_read_operation.cpp
+	file_write_operation.cpp
 )
 
 if(WIN32)
@@ -125,14 +133,6 @@ if(WIN32)
 
     set(win32Sources
 		win32.cpp
-        file.cpp
-        readable_file.cpp
-        writable_file.cpp
-        read_only_file.cpp
-        write_only_file.cpp
-        read_write_file.cpp
-        file_read_operation.cpp
-        file_write_operation.cpp
         socket_helpers.cpp
         socket.cpp
         socket_accept_operation.cpp
@@ -147,6 +147,7 @@ if(WIN32)
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 	set(linuxDetailIncludes
 		linux.hpp
+		linux_async_operation.hpp
 		io_uring_context.hpp
 	)
 	list(TRANSFORM linuxDetailIncludes PREPEND "${PROJECT_SOURCE_DIR}/include/cppcoro/detail/")
